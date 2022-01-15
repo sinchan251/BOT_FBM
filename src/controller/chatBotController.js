@@ -141,8 +141,7 @@ function handleMessage(sender_psid, message) {
   const greeting = firstTrait(message.nlp, "wit$greetings");
   const date = firstTrait(message.nlp, "wit$datetime:$datetime");
   if (greeting && greeting.confidence > 0.8) {
-    callSendAPI(sender_psid, "Hi there!, What is your name? :)");
-    console.log(`asdasd ${date}`);
+    callSendAPI(sender_psid, `Hi there!, What is your name? :) ${date}`);
   } else {
     // default logic
     callSendAPI(sender_psid, "Default");
