@@ -64,7 +64,7 @@ function callSendAPI(sender_psid, response) {
     recipient: {
       id: sender_psid,
     },
-    message: ${text.response},
+    message: { text: response },
   };
 
   // Send the HTTP request to the Messenger Platform
@@ -106,14 +106,14 @@ function firstTrait(nlp, name) {
   return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
 }
 
-function handleMessage(sender_psid,message) {
+function handleMessage(sender_psid, message) {
   // check greeting is here and is confident
   const greeting = firstTrait(message.nlp, "wit$greetings");
   if (greeting && greeting.confidence > 0.8) {
-    callSendAPI(sender_psid,"Hi there!");
+    callSendAPI(sender_psid, "Hi there!");
   } else {
     // default logic
-    callSendAPI(sender_psid,"Default");
+    callSendAPI(sender_psid, "Default");
   }
 }
 
