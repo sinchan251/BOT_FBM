@@ -139,7 +139,9 @@ function handleMessage(sender_psid, message) {
 
   // check greeting is here and is confident
   const greeting = firstTrait(message.nlp, "wit$greetings");
-  const date = Date.now();
+  var today = new Date();
+  var date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
   if (greeting && greeting.confidence > 0.8) {
     callSendAPI(sender_psid, `Hi there!, What is your name? :) ${date}`);
   } else {
