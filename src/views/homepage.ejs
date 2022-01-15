@@ -9,9 +9,8 @@
 <body>
    <!-- Messenger Plugin Obrolan Code -->
    <div id="fb-root"></div>
-
    <!-- Your Plugin Obrolan code -->
-   <div id="fb-customer-chat" class="fb-customerchat">
+   <div id="fb-customer-chat" class="fb-customerchat">       
    </div>   
 
   
@@ -20,9 +19,10 @@
     var chatbox = document.getElementById('fb-customer-chat');
     chatbox.setAttribute("page_id", "101353709120292");
     chatbox.setAttribute("attribution", "biz_inbox");
-  </script>
-   <!-- Your SDK code -->
-   <script>
+  
+
+
+//    <!-- Your SDK code --> 
     window.fbAsyncInit = function() {
       FB.init({
         xfbml            : true,

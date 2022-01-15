@@ -64,7 +64,7 @@ function callSendAPI(sender_psid, response) {
     recipient: {
       id: sender_psid,
     },
-    message: response,
+    message: ${text.response},
   };
 
   // Send the HTTP request to the Messenger Platform
@@ -78,7 +78,7 @@ function callSendAPI(sender_psid, response) {
     (err, res, body) => {
       if (!err) {
         console.log("message sent!");
-        console.log(`Ini pesan yang ku kirim ${response}`);
+        console.log(`Ini pesan yang ku kirim ${response.message}`);
       } else {
         console.error("Unable to send message:" + err);
       }
@@ -86,20 +86,35 @@ function callSendAPI(sender_psid, response) {
   );
 }
 
-// Handles messages events
-function handleMessage(sender_psid, received_message) {
-  let response;
+// // Handles messages events
+// function handleMessage(sender_psid, received_message) {
+//   let response;
 
-  // Check if the message contains text
-  if (received_message.text) {
-    // Create the payload for a basic text message
-    response = {
-      text: `You sent the message: "${received_message.text}". Now send me an image!`,
-    };
+//   // Check if the message contains text
+//   if (received_message.text) {
+//     // Create the payload for a basic text message
+//     response = {
+//       text: `You sent the message: "${received_message.text}". Now send me an image!`,
+//     };
+//   }
+
+//   // Sends the response message
+//   callSendAPI(sender_psid, response);
+// }
+
+function firstTrait(nlp, name) {
+  return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
+}
+
+function handleMessage(sender_psid,message) {
+  // check greeting is here and is confident
+  const greeting = firstTrait(message.nlp, "wit$greetings");
+  if (greeting && greeting.confidence > 0.8) {
+    callSendAPI(sender_psid,"Hi there!");
+  } else {
+    // default logic
+    callSendAPI(sender_psid,"Default");
   }
-
-  // Sends the response message
-  callSendAPI(sender_psid, response);
 }
 
 // Handles messaging_postbacks events
