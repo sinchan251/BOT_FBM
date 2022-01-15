@@ -110,13 +110,13 @@ function handleMessage(sender_psid, message) {
   let entitiesArr = ["wit$greetings", "wit$thanks", "wit$bye"];
   let entityChosen = "";
   entitiesArr.forEach((name) => {
-    let entity = firstTrait(message.nl, name);
+    let entity = firstTrait(message.nlp, name);
     if (entity && entity.confidence > 0.8) {
       entityChosen = name;
     }
   });
 
-  if (entityChosen === "") {
+  if (entityChosen === "    ") {
     //default
     callSendAPI(
       sender_psid,
