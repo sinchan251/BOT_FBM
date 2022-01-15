@@ -78,7 +78,7 @@ function callSendAPI(sender_psid, response) {
     (err, res, body) => {
       if (!err) {
         console.log("message sent!");
-        console.log(`Ini pesan yang ku kirim ${response.message}`);
+        console.log(`Ini pesan yang ku kirim ${text.response}`);
       } else {
         console.error("Unable to send message:" + err);
       }
@@ -107,14 +107,22 @@ function firstTrait(nlp, name) {
 }
 
 function handleMessage(sender_psid, message) {
-  // check greeting is here and is confident
-  const greeting = firstTrait(message.nlp, "wit$greetings");
-  if (greeting && greeting.confidence > 0.8) {
-    callSendAPI(sender_psid, "Hi there!");
-  } else {
-    // default logic
-    callSendAPI(sender_psid, "Default");
-  }
+
+    // check greeting is here and is confident
+    let entitiesArr = ["greetings", "thanks", "bye"];
+    let entityChosen = "";
+    entitiesArr.forEach((name) =>{
+        let entity = fir
+    })
+
+    //   // check greeting is here and is confident
+//   const greeting = firstTrait(message.nlp, "wit$greetings");
+//   if (greeting && greeting.confidence > 0.8) {
+//     callSendAPI(sender_psid, "Hi there!");
+//   } else {
+//     // default logic
+//     callSendAPI(sender_psid, "Default");
+//   }
 }
 
 // Handles messaging_postbacks events
