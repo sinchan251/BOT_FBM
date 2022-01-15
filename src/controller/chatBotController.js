@@ -78,7 +78,6 @@ function callSendAPI(sender_psid, response) {
     (err, res, body) => {
       if (!err) {
         console.log("message sent!");
-        console.log(`Ini pesan yang ku kirim ${text.response}`);
       } else {
         console.error("Unable to send message:" + err);
       }
@@ -108,7 +107,7 @@ function firstTrait(nlp, name) {
 
 function handleMessage(sender_psid, message) {
   // check greeting is here and is confident
-  let entitiesArr = ["greetings", "thanks", "bye"];
+  let entitiesArr = ["wit$greetings", "wit$thanks", "wit$bye"];
   let entityChosen = "";
   entitiesArr.forEach((name) => {
     let entity = firstTrait(message.nl, name);
@@ -124,15 +123,15 @@ function handleMessage(sender_psid, message) {
       `The bot still in development , try to say anything greeting, thanks and by word`
     );
   } else {
-    if (entityChosen === "greetings") {
+    if (entityChosen === "wit$greetings") {
       //send greeting mesasge
       callSendAPI(sender_psid, `HI GREETINGSS`);
     }
-    if (entityChosen === "thanks") {
+    if (entityChosen === "wit$thanks") {
       //send thanks mesasge
       callSendAPI(sender_psid, `your welcome :)`);
     }
-    if (entityChosen === "bye") {
+    if (entityChosen === "wit$bye") {
       //send greeting mesasge
       callSendAPI(sender_psid, `See You ${entityChosen.name}`);
     }
