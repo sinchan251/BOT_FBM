@@ -116,25 +116,21 @@ function handleMessage(sender_psid, message) {
     }
   });
 
-  if (entityChosen === "") {
+  if (entityChosen === "greetings") {
+    //send greeting mesasge
+    callSendAPI(sender_psid, `HI GREETINGSS`);
+  } else if (entityChosen === "thanks") {
+    //send thanks mesasge
+    callSendAPI(sender_psid, `your welcome :)`);
+  } else if (entityChosen === "bye") {
+    //send greeting mesasge
+    callSendAPI(sender_psid, `See You ${entityChosen.name}`);
+  } else {
     //default
     callSendAPI(
       sender_psid,
       `The bot still in development , try to say anything greeting, thanks and by word`
     );
-  } else {
-    if (entityChosen === "greetings") {
-      //send greeting mesasge
-      callSendAPI(sender_psid, `HI GREETINGSS`);
-    }
-    if (entityChosen === "thanks") {
-      //send thanks mesasge
-      callSendAPI(sender_psid, `your welcome :)`);
-    }
-    if (entityChosen === "bye") {
-      //send greeting mesasge
-      callSendAPI(sender_psid, `See You ${entityChosen.name}`);
-    }
   }
 
   //   // check greeting is here and is confident
