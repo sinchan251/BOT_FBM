@@ -107,22 +107,45 @@ function firstTrait(nlp, name) {
 }
 
 function handleMessage(sender_psid, message) {
+  // check greeting is here and is confident
+  let entitiesArr = ["greetings", "thanks", "bye"];
+  let entityChosen = "";
+  entitiesArr.forEach((name) => {
+    let entity = firstTrait(message.nl, name);
+    if (entity && entity.confidence > 0.8) {
+      entityChosen = name;
+    }
+  });
 
-    // check greeting is here and is confident
-    let entitiesArr = ["greetings", "thanks", "bye"];
-    let entityChosen = "";
-    entitiesArr.forEach((name) =>{
-        let entity = fir
-    })
+  if (entityChosen === "") {
+    //default
+    callSendAPI(
+      sender_psid,
+      `The bot still in development , try to say anything greeting, thanks and by word`
+    );
+  } else {
+    if (entityChosen === "greetings") {
+      //send greeting mesasge
+      callSendAPI(sender_psid, `HI GREETINGSS`);
+    }
+    if (entityChosen === "thanks") {
+      //send thanks mesasge
+      callSendAPI(sender_psid, `your welcome :)`);
+    }
+    if (entityChosen === "bye") {
+      //send greeting mesasge
+      callSendAPI(sender_psid, `See You ${entityChosen.name}`);
+    }
+  }
 
-    //   // check greeting is here and is confident
-//   const greeting = firstTrait(message.nlp, "wit$greetings");
-//   if (greeting && greeting.confidence > 0.8) {
-//     callSendAPI(sender_psid, "Hi there!");
-//   } else {
-//     // default logic
-//     callSendAPI(sender_psid, "Default");
-//   }
+  //   // check greeting is here and is confident
+  //   const greeting = firstTrait(message.nlp, "wit$greetings");
+  //   if (greeting && greeting.confidence > 0.8) {
+  //     callSendAPI(sender_psid, "Hi there!");
+  //   } else {
+  //     // default logic
+  //     callSendAPI(sender_psid, "Default");
+  //   }
 }
 
 // Handles messaging_postbacks events
