@@ -149,7 +149,7 @@ function handleMessage(sender_psid, message) {
 
   if (lahir && lahir.confidence > 0.8) {
     let a = lahir.toISOString().split("T")[0];
-    callSendAPI(sender_psid, `this ur birday ? ${a}`);
+    callSendAPI(sender_psid, `this ur birday ? ${(a, lahir)}`);
   } else {
     callSendAPI(sender_psid, `salah cok ${date}`);
   }
@@ -183,9 +183,9 @@ function handleMessage(sender_psid, message) {
         },
       },
     };
-  } else {
+  } else if (message.date) {
     // default logic
-    callSendAPI(sender_psid, "Default");
+    callSendAPI(sender_psid, "Defaultasdasd");
   }
 }
 
