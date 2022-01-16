@@ -105,83 +105,57 @@ function firstTrait(nlp, name) {
   return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
 }
 
-// function handleMessage(sender_psid, message) {
-//   // check greeting is here and is confident
-//   //   let entitiesArr = ["greetings", "thanks", "bye"];
-//   //   let entityChosen = "";
-//   //   entitiesArr.forEach((name) => {
-//   //     let entity = firstTrait(message.nlp, name);
-//   //     if (entity && entity.confidence > 0.8) {
-//   //       entityChosen = name;
-//   //     }
-//   //   });
+function handleMessage(sender_psid, message) {
+  //   // check greeting is here and is confident
+  //   //   let entitiesArr = ["greetings", "thanks", "bye"];
+  //   //   let entityChosen = "";
+  //   //   entitiesArr.forEach((name) => {
+  //   //     let entity = firstTrait(message.nlp, name);
+  //   //     if (entity && entity.confidence > 0.8) {
+  //   //       entityChosen = name;
+  //   //     }
+  //   //   });
 
-//   //   if (entityChosen === "") {
-//   //     //default
-//   //     callSendAPI(
-//   //       sender_psid,
-//   //       `The bot still in development , try to say anything greeting, thanks and by word`
-//   //     );
-//   //   } else {
-//   //     if (entityChosen === "greetings") {
-//   //       //send greeting mesasge
-//   //       callSendAPI(sender_psid, `HI GREETINGSS`);
-//   //     }
-//   //     if (entityChosen === "thanks") {
-//   //       //send thanks mesasge
-//   //       callSendAPI(sender_psid, `your welcome :)`);
-//   //     }
-//   //     if (entityChosen === "bye") {
-//   //       //send greeting mesasge
-//   //       callSendAPI(sender_psid, `See You ${entityChosen.name}`);
-//   //     }
-//   //   }
+  //   //   if (entityChosen === "") {
+  //   //     //default
+  //   //     callSendAPI(
+  //   //       sender_psid,
+  //   //       `The bot still in development , try to say anything greeting, thanks and by word`
+  //   //     );
+  //   //   } else {
+  //   //     if (entityChosen === "greetings") {
+  //   //       //send greeting mesasge
+  //   //       callSendAPI(sender_psid, `HI GREETINGSS`);
+  //   //     }
+  //   //     if (entityChosen === "thanks") {
+  //   //       //send thanks mesasge
+  //   //       callSendAPI(sender_psid, `your welcome :)`);
+  //   //     }
+  //   //     if (entityChosen === "bye") {
+  //   //       //send greeting mesasge
+  //   //       callSendAPI(sender_psid, `See You ${entityChosen.name}`);
+  //   //     }
+  //   //   }
 
-// check greeting is here and is confident
-const greeting = firstTrait(message.nlp, "wit$greetings");
-const lahir = firstTrait(message.nlp, "wit$datetime");
+  // check greeting is here and is confident
+  const greeting = firstTrait(message.nlp, "wit$greetings");
+  const lahir = firstTrait(message.nlp, "wit$datetime");
 
-//get today today
-let today = new Date();
-let date =
-  today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  //get today today
+  let today = new Date();
+  let date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
-if (lahir && lahir.confidence > 0.8) {
-  let a = lahir.toISOString().split("T")[0];
-  callSendAPI(sender_psid, `this ur birday ? ${(a, lahir)}`);
-}
-if (greeting && greeting.confidence > 0.8) {
-  callSendAPI(sender_psid, `Hi there!, What is your name? :) `);
-  // response = {
-  //   attachment: {
-  //     type: "template",
-  //     payload: {
-  //       template_type: "generic",
-  //       elements: [
-  //         {
-  //           title:
-  //             "did u want wants to know how many days till his next birthday ?",
-  //           subtitle: "Tap a button to answer.",
-  //           buttons: [
-  //             {
-  //               type: "postback",
-  //               title: "Yes!",
-  //               payload: "yes",
-  //             },
-  //             {
-  //               type: "postback",
-  //               title: "No!",
-  //               payload: "no",
-  //             },
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //   },
-  // };
-} else {
-  // default logic
-  callSendAPI(sender_psid, "Defaultasdasd");
+  if (lahir && lahir.confidence > 0.8) {
+    let a = lahir.toISOString().split("T")[0];
+    callSendAPI(sender_psid, `this ur birday ? ${(a, lahir)}`);
+  }
+  if (greeting && greeting.confidence > 0.8) {
+    callSendAPI(sender_psid, `Hi there!, What is your name? :) `);
+  } else {
+    // default logic
+    callSendAPI(sender_psid, "Defaultasdasd");
+  }
 }
 
 // Handles messaging_postbacks events
