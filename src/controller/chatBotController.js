@@ -139,7 +139,7 @@ function firstTrait(nlp, name) {
 
 // check greeting is here and is confident
 const greeting = firstTrait(message.nlp, "wit$greetings");
-const lahir = firstTrait(message.nlp, "wit$datetime:$datetime");
+const lahir = firstTrait(message.nlp, "wit$datetime");
 
 //get today today
 let today = new Date();
@@ -149,10 +149,7 @@ let date =
 if (lahir && lahir.confidence > 0.8) {
   let a = lahir.toISOString().split("T")[0];
   callSendAPI(sender_psid, `this ur birday ? ${(a, lahir)}`);
-} else {
-  callSendAPI(sender_psid, `salah cok ${date}`);
 }
-
 if (greeting && greeting.confidence > 0.8) {
   callSendAPI(sender_psid, `Hi there!, What is your name? :) `);
   // response = {
