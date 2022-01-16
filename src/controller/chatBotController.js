@@ -139,11 +139,50 @@ function handleMessage(sender_psid, message) {
 
   // check greeting is here and is confident
   const greeting = firstTrait(message.nlp, "wit$greetings");
-  var today = new Date();
-  var date =
+  const lahir = firstTrait(message.nlp, "wit$datetime:$datetime");
+
+  //get today today
+  let today = new Date();
+  today.setUTCDate(7);
+  let date =
     today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+
+  if (lahir && lahir.confidence > 0.8) {
+    let a = lahir.toISOString().split("T")[0];
+    callSendAPI(sender_psid, `this ur birday ? ${a}`);
+  } else {
+    callSendAPI(sender_psid, `salah cok ${date}`);
+  }
+
   if (greeting && greeting.confidence > 0.8) {
-    callSendAPI(sender_psid, `Hi there!, What is your name? :) ${date}`);
+    callSendAPI(sender_psid, `Hi there!, What is your name? :) `);
+    response = {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [
+            {
+              title:
+                "did u want wants to know how many days till his next birthday ?",
+              subtitle: "Tap a button to answer.",
+              buttons: [
+                {
+                  type: "postback",
+                  title: "Yes!",
+                  payload: "yes",
+                },
+                {
+                  type: "postback",
+                  title: "No!",
+                  payload: "no",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    };
   } else {
     // default logic
     callSendAPI(sender_psid, "Default");
@@ -159,9 +198,18 @@ function handlePostback(sender_psid, received_postback) {
 
   // Set the response based on the postback payload
   if (payload === "yes") {
-    response = { text: "Thanks!" };
+    // hitung birtday
+    function _calculateAge(birthday) {
+      // birthday is a date
+      var ageDifMs = Date.now() - birthday.getTime();
+      var ageDate = new Date(ageDifMs); // miliseconds from epoch
+      return Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
+    response = {
+      text: "ntar kita itung kawokaw",
+    };
   } else if (payload === "no") {
-    response = { text: "Oops, try sending another image." };
+    response = { text: "Thanks, Goodbye." };
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
